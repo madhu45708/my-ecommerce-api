@@ -254,8 +254,21 @@ def login(data: LoginRequest):
 
     try:
         # Get user by email
-        cur.execute("SELECT * FROM users WHERE email=%s", (data.email,))
+        cur.execute("""
+                    SELECT table_name
+                    FROM information_schema.tables
+                    WHERE table_schema = 'public'
+                    """)
+        tables = cur.fetchall()
+        print("TABLES =", tables)
+
+        # Get user by email
+        cur.execute(
+            "SELECT * FROM users WHERE email=%s",
+            (data.email,)
+        )
         user = cur.fetchone()
+                
         # Check user exists or not
         if not user:
             raise HTTPException(status_code=401, detail="Invalid credentials")
