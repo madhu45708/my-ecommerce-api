@@ -19,6 +19,7 @@ def generate_slug(name):
 # get all categories
 @router.get("/")
 def get_categories(user=Depends(get_current_user)):
+    admin_required(user)
     conn = get_conn()
     cur = conn.cursor(cursor_factory=RealDictCursor)
 

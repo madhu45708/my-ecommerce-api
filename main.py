@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import os
-
 from auth import router as auth_router
 from products import router as product_router
 from wishlist import router as wishlist_router
@@ -18,7 +17,7 @@ from child_categories import router as child_categories
 from customer_management import router as customer_management
 from contact_us import router as contact_us
 from home_page import router as home_page
-
+from orders import router as orders
 from products_frontend import router as products_frontend_router
 
 app = FastAPI(
@@ -52,7 +51,7 @@ app.include_router(child_categories)
 app.include_router(customer_management)
 app.include_router(contact_us)
 app.include_router(home_page)
-
+app.include_router(orders)
 app.include_router(products_frontend_router)
 
 
